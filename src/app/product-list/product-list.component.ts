@@ -9,7 +9,7 @@ import { ProductService } from '../services/product.service';
 export class ProductListComponent {
 
   data: any;
-  searchCategory: string = '';
+  searchCategory = '';
   constructor(private productService : ProductService) { }
   ngOnInit() {
     this.fetchData();

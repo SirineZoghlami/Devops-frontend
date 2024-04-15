@@ -1,29 +1,49 @@
-import { TestBed } from '@angular/core/testing';
+// app.component.spec.ts
+
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [AppComponent]
-  }));
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [AppComponent],
+      imports: [RouterTestingModule]
+    }).compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'SummerWorkshop_Angular'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('SummerWorkshop_Angular');
+  it('should render the navbar', () => {
+    const navbarElement = fixture.nativeElement.querySelector('.navbar');
+    expect(navbarElement).toBeTruthy();
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('SummerWorkshop_Angular app is running!');
+  it('should render the navbar brand with correct text', () => {
+    const navbarBrandElement = fixture.nativeElement.querySelector('.navbar-brand');
+    expect(navbarBrandElement.textContent).toContain('DevOps Project');
+  });
+
+  it('should contain Products link in the navbar', () => {
+    const productsLinkElement = fixture.nativeElement.querySelector('[routerLink="/products"]');
+    expect(productsLinkElement).toBeTruthy();
+  });
+
+  it('should contain Contact link in the navbar', () => {
+    const contactLinkElement = fixture.nativeElement.querySelector('[routerLink="/contact"]');
+    expect(contactLinkElement).toBeTruthy();
   });
 });
+
+

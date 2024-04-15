@@ -14,7 +14,7 @@ export class ProductComponent {
 
   data: any;
   closeResult!: string;
-  form: boolean = false;
+  form = false;
   stock: any;
   product: {
     title: any;
