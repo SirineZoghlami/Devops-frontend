@@ -16,17 +16,20 @@ COPY . .
 # Build the application
 RUN npm run build --prod
 
-# Stage 2: Serve the built application using NGINX
-FROM nginx:latest
+# Stage 2: Serve the built application using npm
+FROM node:16-alpine
 
-# Remove default NGINX content
-RUN rm -rf /usr/share/nginx/html/*
+# Set the working directory inside the container
+WORKDIR /app
 
-# Copy the built Angular application to NGINX web root directory
-COPY --from=builder /app/dist/summer-workshop-angular /usr/share/nginx/html
+# Copy the built Angular application from the previous stage
+COPY --from=builder /app/dist/summer-workshop-angular .
 
-# Expose port 80 (NGINX's default port)
+# Install serve globally
+RUN npm install -g serve
+
+# Expose port 8888 (can be changed to any desired port)
 EXPOSE 8888
 
-# Start NGINX with daemon off directive
-CMD ["nginx", "-g", "daemon off;"]
+# Start the Angular application using npm start
+CMD ["npm", "start"]
