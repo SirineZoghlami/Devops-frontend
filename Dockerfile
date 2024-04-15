@@ -26,7 +26,7 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /app/dist/summer-workshop-angular /usr/share/nginx/html
 
 # Expose port 80 (NGINX's default port)
-EXPOSE 80
+EXPOSE 8888
 
 # Start NGINX with daemon off directive
 CMD ["nginx", "-g", "daemon off;"]
