@@ -1,5 +1,5 @@
 # Stage 1: Build the Angular application
-FROM node:latest AS builder
+FROM node:16 AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
 # Copy the rest of the application code
 COPY . .
