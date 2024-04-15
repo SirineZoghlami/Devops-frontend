@@ -19,7 +19,7 @@ RUN npm run build --prod
 FROM node:16-alpine
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /DEVOPS_PROJECT_FRONT
 
 # Copy the built Angular application from the previous stage
 COPY --from=builder /app/dist/summer-workshop-angular .
