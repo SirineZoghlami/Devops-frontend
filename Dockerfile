@@ -1,14 +1,10 @@
-# Use NGINX base image
+# Use the official Nginx image as the base image
 FROM nginx:latest
 
-# Remove the default NGINX configuration file
-RUN rm -rf /etc/nginx/conf.d/*
-
-# Copy the NGINX configuration file for the Angular app
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
+# Remove default nginx website
+RUN rm -rf /usr/share/nginx/html/*
 # Copy the built Angular files to the NGINX web root directory
-COPY dist/DevOps-Frontend /usr/share/nginx/html
+COPY dist/summer-workshop-angular /usr/share/nginx/html
 
 # Expose the default NGINX port
 EXPOSE 80
