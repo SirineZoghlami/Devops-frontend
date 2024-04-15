@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StockService } from '../services/stock.service';
 
-
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -22,11 +21,11 @@ export class ProductComponent {
     price: any;
     quantity: any;
   } = {
-      title: null,
-      category: null,
-      price: null,
-      quantity: null
-    };
+    title: null,
+    category: null,
+    price: null,
+    quantity: null
+  };
 
   constructor(private productService: ProductService, private route: ActivatedRoute, private modalService: NgbModal,
     private stockService: StockService) { }
@@ -52,9 +51,6 @@ export class ProductComponent {
     });
   }
 
-
-
-
   open(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -72,9 +68,7 @@ export class ProductComponent {
       return `with: ${reason}`;
     }
   }
-  closeForm() {
 
-  }
   cancel() {
     this.form = false;
   }
@@ -88,11 +82,10 @@ export class ProductComponent {
 
   deleteItem(itemId: any) {
     if (confirm('Are you sure you want to delete this item?')) {
-    this.productService.deleteData(itemId).subscribe(
-      () => {
+      this.productService.deleteData(itemId).subscribe(() => {
         console.log('Item deleted');
         this.fetchData();
       });
-  }}
-
+    }
+  }
 }
