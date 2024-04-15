@@ -2,7 +2,7 @@
 FROM node:16 AS builder
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /DEVOPS_PROJECT_FRONT
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
