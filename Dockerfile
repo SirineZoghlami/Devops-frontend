@@ -6,6 +6,7 @@ WORKDIR /DEVOPS_PROJECT_FRONT
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
+
 # Install dependencies
 RUN npm ci
 
@@ -16,19 +17,12 @@ COPY . .
 RUN npm run build --prod
 
 # Stage 2: Serve the built application using npm
-FROM node:16-alpine
+FROM nginx:alpine
 
-# Set the working directory inside the container
-WORKDIR /DEVOPS_PROJECT_FRONT
+# Copy the built Angular application from the previous stage to NGINX's html directory
+COPY --from=builder /DEVOPS_PROJECT_FRONT/dist/summer-workshop-angular /usr/share/nginx/html
 
-# Copy the built Angular application from the previous stage
-COPY --from=builder /app/dist/summer-workshop-angular .
+# Expose port 80 (default port for HTTP)
+EXPOSE 80
 
-# Install serve globally
-RUN npm install -g serve
-
-# Expose port 8888 (can be changed to any desired port)
-EXPOSE 8888
-
-# Start the Angular application using npm start
-CMD ["npm", "start"]
+# NGINX is automatically started by the base image, no need for additional CMD or ENTRYPOINT instructions
